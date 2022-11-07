@@ -9,6 +9,7 @@ function MainNavigation() {
 return(
     <NavigationContainer>
         <Stack.Navigator>
+    
             <Stack.Screen name = "Login" component = {Login}
               options={{
                 headerShown: false
@@ -17,17 +18,8 @@ return(
               options={{
                 headerShown: false
             }}/>
-            <Stack.Screen
-            name='TabNavigation'
-            component={TabNavigation}
-             options={{
-             headerShown:false
-         }}
-        />
-        <Stack.Screen
-          name='Comments'
-          component={Comments}
-        />  
+        
+       
         </Stack.Navigator>
     </NavigationContainer>
 )}
