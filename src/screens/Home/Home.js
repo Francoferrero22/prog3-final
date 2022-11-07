@@ -1,15 +1,7 @@
-import { 
-    View, 
-    Text, 
-    StyleSheet, 
-    Image, 
-    FlatList,
-    ActivityIndicator,
-    TouchableOpacity
-  } from 'react-native'
-  import React, {Component} from 'react'
-  import Post from '../../components/Post/Post'
-  import {db} from '../../firebase/config'
+import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native'
+import React, {Component} from 'react'
+import Posts from '../../components/Posts/Posts'
+import {db} from '../../firebase/config'
 
   
   class Home extends Component {
@@ -33,25 +25,26 @@ import {
               })
             })
 
-
     this.setState({
-allPosts= publicaciones
+
+      allPosts : publicaciones
  })
 })
 }
 render(){
     return(
         <>
-<View>
-<Text>Home</Text>
-</View>
-<View >
+          <View>
+             <Text>Home</Text>
+          </View>
+
+          <View>
           <FlatList
             data={this.state.allPosts}
             keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
+            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} />}
           />
-        </View>
+          </View>
         </>
     )
 }
