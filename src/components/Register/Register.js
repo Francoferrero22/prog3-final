@@ -22,14 +22,14 @@ render(){
         <View>
         <Text>Formulario</Text>
         <TextInput
-            style={styles.input}
+            
             placeholder='Escribe tu email'
             keyboardType='email-address'
             onChangeText={text => this.setState({input1: text})}
             value={this.state.input1}
         />
           <TextInput
-            style={styles.input}
+           
             placeholder='Escribe tu password'
             keyboardType='default'
             onChangeText={text => this.setState({input2: text})}
@@ -41,6 +41,9 @@ render(){
                 <Text>Registrarme</Text>
             </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Login')}>
+              <Text>Ya estoy registrado</Text>
+            </TouchableOpacity>
       </View>
     )
   }
