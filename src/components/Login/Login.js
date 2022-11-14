@@ -24,14 +24,14 @@ render() {
       <View>
         <Text>Login</Text>
         <TextInput
-            
+               style={styles.input}
             keyboardType='email-address'
             placeholder='Ingresa tu email'
             onChangeText={text => this.setState({email: text})}
             value={this.state.email}
         />
         <TextInput
-           
+              style={styles.input}
             keyboardType='default'
             placeholder='Ingresa tu Password'
             onChangeText={text => this.setState({password: text})}
@@ -42,20 +42,18 @@ render() {
             <TouchableOpacity onPress={()=> this.loguear(this.state.email, this.state.password)}>
                 <Text>Log In</Text>
             </TouchableOpacity>
-            <Text>
-              Aun no tienes una cuenta
-            </Text>
             <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')}>
               <Text>Registrate</Text>
             </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={()=> this.props.navigation.navigate('Home')}>
-              <Text>Volver al home</Text>
-            </TouchableOpacity>
         </View>
     )
   }
 }
-
+const styles = StyleSheet.create({
+    input:{
+        borderWidth:1
+    }
+})
 
 export default Login

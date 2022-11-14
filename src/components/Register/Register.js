@@ -22,14 +22,14 @@ render(){
         <View>
         <Text>Formulario</Text>
         <TextInput
-            
+             style={styles.input}
             placeholder='Escribe tu email'
             keyboardType='email-address'
             onChangeText={text => this.setState({input1: text})}
             value={this.state.input1}
         />
           <TextInput
-           
+            style={styles.input}
             placeholder='Escribe tu password'
             keyboardType='default'
             onChangeText={text => this.setState({input2: text})}
@@ -37,7 +37,7 @@ render(){
             secureTextEntry={true}
         />
         <View>
-            <TouchableOpacity onPress={()=> this.registrarUsuario(this.state.input1, this.state.input2)}>
+            <TouchableOpacity onPress={()=> this.registrarUsuario(this.state.input1, this.state.input2)} onLongPress={()=> this.props.navigation.navigate('Home')} >
                 <Text>Registrarme</Text>
             </TouchableOpacity>
         </View>
@@ -50,7 +50,11 @@ render(){
 }
 
         
-
+const styles = StyleSheet.create({
+    input:{
+        borderWidth:1
+    }
+})
 
 
 
