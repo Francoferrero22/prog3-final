@@ -34,11 +34,11 @@ import {db} from '../../firebase/config'
 render(){
     return(
         <>
-          <View>
+          <View style={styles.container1} >
              <Text>Home</Text>
           </View>
 
-          <View>
+          <View tyle={styles.container3} >
           <FlatList
             data={this.state.allPosts}
             keyExtractor={item => item.id.toString()}

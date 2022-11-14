@@ -7,12 +7,13 @@ class Login extends Component {
         super(props)
         this.state = {
             email:'',
-            password:''
+            password:'',
+            login: false
         }
     }
-    loguear(email, password){
+    onSubmit(email,password){
         auth.signInWithEmailAndPassword(email, password)
-        .then(resp => {
+        .then(resp => {this.setState({login: true})
             this.props.navigation.navigate('TabNavigation')
         })
         .catch( err => console.log(err))
@@ -39,7 +40,7 @@ render() {
             secureTextEntry={true}
         />
         <View>
-            <TouchableOpacity onPress={()=> this.loguear(this.state.email, this.state.password)}>
+            <TouchableOpacity onPress={()=> this.onSubmit(this.state.email,this.state.password)}>
                 <Text>Log In</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')}>

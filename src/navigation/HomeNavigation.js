@@ -14,10 +14,10 @@ export default class HomeNavigation extends Component {
             name='Home'
             component={Home}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
             name='FriendProfile'
             component={FriendProfile}
-        />
+        /> */}
       </Stack.Navigator>
     )
   }
