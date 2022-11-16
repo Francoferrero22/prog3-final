@@ -15,7 +15,7 @@ class Posts extends Component {
   render() {
     return (
       <View>
-    git
+    
         <Text>{this.props.data.description}</Text>
         <Text>{this.props.data.owner}</Text>
         
