@@ -1,60 +1,86 @@
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput } from 'react-native'
 import React, { Component } from 'react'
-import { auth } from '../../firebase/config'
+import { auth, db } from '../../firebase/config'
 
 class Register extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state ={
-            input1:'',
-            input2:''
+            props: props,
+            email: '',
+            user: '',
+            password: '',
+            bio: '',
+            error:'',
+
         }
     }
 
-    registrarUsuario(email, password){
-        auth.createUserWithEmailAndPassword(email, password)
-        .then(resp => console.log(resp))
-        .catch(err => console.log(err))      
-    } 
+    onSubmit(){
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(res => {
+            db.collection('users').add({ 
+                owner: this.state.email,
+                userName: this.state.user,
+                bio: this.state.bio,
+                createdAt: Date.now(),
+                photo: this.state.photo
+        })
+        .then(() => {
+            this.setState({ 
+            email: '',
+            user: '',
+            password: '',
+            bio: '',
+            error: ''
+        })
+        this.state.navigation.navigate('Login') })
+    })    
+    .catch(error => this.setState({
+        error: error.message
+    }))
+    }
+    
 
-render(){
-    return(  
-        <View>
-        <Text>Formulario</Text>
-        <TextInput
-             style={styles.input}
-            placeholder='Escribe tu email'
-            keyboardType='email-address'
-            onChangeText={text => this.setState({input1: text})}
-            value={this.state.input1}
-        />
-          <TextInput
-            style={styles.input}
-            placeholder='Escribe tu password'
-            keyboardType='default'
-            onChangeText={text => this.setState({input2: text})}
-            value={this.state.input2}
-            secureTextEntry={true}
-        />
-        <View>
-            <TouchableOpacity onPress={()=> this.registrarUsuario(this.state.input1, this.state.input2)} onLongPress={()=> this.props.navigation.navigate('Home')} >
-                <Text>Registrarme</Text>
-            </TouchableOpacity>
-        </View>
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Login')}>
-              <Text>Ya estoy registrado</Text>
-            </TouchableOpacity>
-      </View>
-    )
-  }
+render() {
+        return (
+            <View >
+                <Text>REGISTER</Text>
+                {this.state.error !== '' ? <Text >{this.state.error}</Text> : null}
+                <TextInput 
+                    keyboardType='email-address'
+                    placeholder='email'
+                    onChangeText={text => this.setState({ email: text })}
+                    value={this.state.email} />
+                <TextInput 
+                    keyboardType='default'
+                    placeholder='usuario'
+                    onChangeText={text => this.setState({ user: text })}
+                    value={this.state.user} />
+                <TextInput 
+                    keyboardType='default'
+                    placeholder='contraseña'
+                    secureTextEntry={true}
+                    onChangeText={text => this.setState({ password: text })}
+                    value={this.state.password} />
+                <TextInput 
+                    keyboardType='default'
+                    placeholder='bio'
+                    onChangeText={text => this.setState({ bio: text })}
+                    value={this.state.bio} />
+                <TouchableOpacity onPress={() => this.onSubmit()}>
+                    <Text >Registrar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')}>
+                    <Text >Si ya tenés un usuario, logueate acá</Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
 }
 
         
-const styles = StyleSheet.create({
-    input:{
-        borderWidth:1
-    }
-})
+
 
 
 
