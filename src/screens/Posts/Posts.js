@@ -8,7 +8,9 @@ class Posts extends Component {
     constructor(){
         super()
         this.state={
-            description:''
+            description:'',
+            mostrarCamara: true,
+            fotoUrl: ''
         }
     }
 
@@ -18,11 +20,18 @@ class Posts extends Component {
             createdAt: Date.now(),
             description: description,
             likes:[],
-            comments:[]
+            comments:[],
+            foto: this.state.fotoUrl
         })
         .then(resp => console.log('hizo el posteo'))
         .catch(err => console.log(err))
 
+    }
+    cuandoSubaLaImagen(url){
+        this.setState({
+            mostrarCamara:false,
+            fotoUrl: url
+        })
     }
 
 
