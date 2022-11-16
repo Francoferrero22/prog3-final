@@ -1,16 +1,15 @@
 import {Text , StyleSheet, View, Image} from 'react-native'
 import React, { Component } from 'react'
 import {Camera} from 'expo-camera'
-import {Storage} from '../../firebase/config'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { TouchableOpacity } from 'react-native'
 
 
-class Camera extends Component{
+class Camara extends Component{
     constructor(){
         super()
         this.metodosCamera = null 
         this.state = {
-            showCamera : false,
+            showCamera : true,
             foto : '',
         }
     }
@@ -92,4 +91,4 @@ const styles = StyleSheet.create({
     container: {}
 })
 
-export default Camera
+export default Camara

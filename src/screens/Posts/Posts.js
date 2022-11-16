@@ -1,6 +1,7 @@
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import {auth, db} from '../../firebase/config'
+import Camara from '../../components/Camara/Camara'
 
 
 class Posts extends Component {
@@ -38,20 +39,23 @@ class Posts extends Component {
 
     render() {
         return (
-        <View>
-            <TextInput
-                keyboardType='default'
-                onChangeText={text => this.setState({description:text})}
-                value={this.state.description}
-                style={styles.input}
-                placeholder='Deja tu descripcion'
-            />
-            <TouchableOpacity
-            onPress={()=> this.enviarPost(this.state.description)}
-            >
-               
-                <Text>Enviar Post</Text>
-            </TouchableOpacity>
+            <View style = {styles.container}>
+          
+              <View>
+                <TextInput
+                    keyboardType='default'
+                    onChangeText={text => this.setState({description:text})}
+                    value={this.state.description}
+                    style={styles.input}
+                    placeholder='Deja tu descripcion'
+                />
+                <TouchableOpacity
+                onPress={()=> this.enviarPost(this.state.description)}
+                >
+                    <Text>Enviar Post</Text>
+                </TouchableOpacity>
+              </View>  
+            
         </View>
         )
     }
