@@ -14,7 +14,7 @@ class Posts extends Component {
 
     enviarPost(description){
         db.collection('posts').add({
-            owner:auth.currentUser.email,
+            owner: auth.currentUser.email,
             createdAt: Date.now(),
             description: description,
             likes:[],
@@ -40,6 +40,7 @@ class Posts extends Component {
             <TouchableOpacity
             onPress={()=> this.enviarPost(this.state.description)}
             >
+               
                 <Text>Enviar Post</Text>
             </TouchableOpacity>
         </View>

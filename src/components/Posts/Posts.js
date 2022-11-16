@@ -6,7 +6,7 @@ class Posts extends Component {
     constructor(props){
         super(props)
         this.state = {
-            likesCount:props.data.likes.length,
+            likesCount: props.data.likes.length,
             commentCount: props.data.comments.length,
             isMyLike: false
         }
@@ -15,7 +15,9 @@ class Posts extends Component {
   render() {
     return (
       <View>
+    git
         <Text>{this.props.data.description}</Text>
+        <Text>{this.props.data.owner}</Text>
         
         {
            this.state.isMyLike ?
