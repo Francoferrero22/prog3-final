@@ -1,71 +1,120 @@
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, FlatList, TextInput } from 'react-native'
+import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from  '../../firebase/config'
-import Posts from '../Posts/Posts'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSearch} from '@fortawesome/free-solid-svg-icons'
+import {Searchbar} from "react-native-paper"
 
 class Buscador extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            buscar: "",
-            posts: []
+            buscar: false,
+            value: "",
+            perfiles: [],
+            perfilesFiltrados: [],
+            error: ""
         }
     }
 
-filter() {
-    db.collection('posts')
-    .where('user', '==', this.state.search)
-    .orderBy('createdAt', 'desc')
-    .onSnapshot((docs) => {
+componentDidMount() {
+    db.collection('users').onSnapshot
+    
+    docs => {
 
-        let posteos = []
+        let usuarios = []
 
         docs.forEach((doc) => {
-            posteos.push({
+            usuarios.push({
                 id:doc.id,
                 data:doc.data()
             })
         })
 
         this.setState({
-            posts: posteos
+            perfiles: usuarios, buscar: true
         })
+    }
+}
+
+preventSubmit(e){
+    e.preventDefault()
+
+    this.setState({error: ""})
+
+    let textoFilter = this.state.value.toLowerCase
+
+    if (this.state.value === "") {
+        this.setState({CampoNoVacio: "¡No puedes enviar un campo vacío!"})
+    } else {
+        this.setState({CampoNoVacio:""})
+
+        let usuariosFiltrados = this.state.perfiles.filter(perfil => perfil.data.username?.toLowerCase().includes(textoFilter))
+
+        if(usuariosFiltrados.length === 0)
+        return this.setState({ error: "¡Ese usuario no existe!", usuariosFiltrados:[]})
+
+        this.setState({ perfilesFiltrados: usuariosFiltrados})
+    }
+}
+
+controlChanges(e){
+    e.preventDefault()
+
+    this.setState({error: ""})
+
+    if(e.target.value === ""){
+        this.setState({
+            perfilesFiltrados: []
+        })
+    } else {
+
+        let usuariosFiltrados = this.state.perfiles.filter(perfil => perfil.data.username?.toLowerCase().includes(textoFilter))
+
+        if(usuariosFiltrados.length === 0)
+        return this.setState({ error: "¡Ese usuario no existe!", usuariosFiltrados:[]})
+
+        this.setState({ perfilesFiltrados: usuariosFiltrados})
+    }
+}
+
+clear (){
+    this.setState({
+        buscar: false,
+        value: "",
+        result: [],
+        usuariosFiltrados: []
     })
 }
 
+
 render() {
     return (
-        <View style = {StyleSheet.background}>
+        <View style = {styles.Searchbar}>
 
-            <TextInput
-            style={StyleSheet.buscar}
-            onChangeText={(buscarText)=>
-            
-                this.setState({buscar:buscarText})}
-            
-            placeholder="buscar"
-            keyboardType='email-adress'>
+            <Searchbar 
+            style = {styles.inputSearch} placeholder="Buscar usuarios"
+            onChangeText= {text => (this.setState({value: text}))}
+            value={this.state.value}
+            onChange={(e) => this.controlChanges}
 
-            </TextInput>
+            />
 
-            <TouchableOpacity onPress={()=> this.filter()}>
+            <Text style={styles.error}> {this.state.CampoNoVacio}</Text>
 
-               <FontAwesomeIcon icon={faSearch}>
-                  <Text> Buscar </Text>
-               </FontAwesomeIcon>
-
-            </TouchableOpacity>
+            <Text>{this.state.usuariosFiltrados}</Text>
 
             <FlatList
 
-                data={this.state.posts}
-                keyExtractor={(post) => post.id}
+                data={this.state.usuariosFiltrados}
+                keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => 
-                <Posts postData={item} />}
 
-            ></FlatList>
+                <View style = {styles.conteiner}>
+                    <Image source={item.data.photo}
+                           style={styles.image} />
+                    <Text style={styles.textName}> {this.data.username}</Text>
+                </View>
+               }
+            />
 
         </View>
     )
@@ -73,22 +122,17 @@ render() {
 }
 
 const styles = StyleSheet.create({
-    background:{
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        textAlign: 'center'
+
+    Searchbar:{
+        textAlign: "center"
     },
 
-    buscar:{
+    inputSearch:{
+        color: "#2d2d2e"
 
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        textAlign: 'center',
-        borderRadius: 4,
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderColor: "#23a456"
-    }
+
+    },
+
 })
 
 export default Buscador
