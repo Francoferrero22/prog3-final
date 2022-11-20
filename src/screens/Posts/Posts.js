@@ -11,18 +11,18 @@ class Posts extends Component {
         this.state={
             description:'',
             mostrarCamara: true,
-            fotoUrl: ''
+            foto: ''
         }
     }
 
-    enviarPost(description){
+    enviarPost(description, foto){
         db.collection('posts').add({
             owner: auth.currentUser.email,
             createdAt: Date.now(),
             description: description,
             likes:[],
             comments:[],
-            foto: this.state.fotoUrl
+            foto : this.state.fotoUrl
         })
         .then(resp => console.log('hizo el posteo'))
         .catch(err => console.log(err))
@@ -30,8 +30,9 @@ class Posts extends Component {
     }
     cuandoSubaLaImagen(url){
         this.setState({
+            fotoUrl: url,
             mostrarCamara:false,
-            fotoUrl: url
+            
         })
     }
 
@@ -44,7 +45,7 @@ class Posts extends Component {
              {
                 this.state.mostrarCamara ?
                 <Camara
-                cuandoSubaLaImagen = {(url)=> this.cuandoSubaLaImagen(url)}
+                cuandoSubaLaImagen = {(url) => this.cuandoSubaLaImagen(url)}
                 /> :
               <View>
                 <TextInput
@@ -55,8 +56,8 @@ class Posts extends Component {
                     placeholder='Deja tu descripcion'
                 />
                 <TouchableOpacity
-                onPress={()=> this.enviarPost(this.state.description)}
-                >
+                onPress={()=> this.enviarPost(this.state.description, this.state.foto)}
+              style={styles.botton}  >
                     <Text>Enviar Post</Text>
                 </TouchableOpacity>
               </View>  
@@ -73,7 +74,8 @@ const styles = StyleSheet.create({
     input:{
         borderWidth:1,
         height:48
-    }
+    },
+    
 })
 
 export default Posts

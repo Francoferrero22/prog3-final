@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
 
 class Posts extends Component {
@@ -14,10 +14,13 @@ class Posts extends Component {
 
   render() {
     return (
-      <View>
-    
+      <View >
+    <Image   style={styles.photo}
+                    source={{uri: this.props.data.foto}}
+                    resizeMode='cover'/>
         <Text>{this.props.data.description}</Text>
         <Text>{this.props.data.owner}</Text>
+
         
         {
            this.state.isMyLike ?
@@ -34,5 +37,10 @@ class Posts extends Component {
     )
   }
 }
-
+const styles = StyleSheet.create({
+  photo:{
+      height:250
+  },
+ 
+}) 
 export default Posts

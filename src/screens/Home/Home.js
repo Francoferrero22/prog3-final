@@ -8,7 +8,7 @@ import {db} from '../../firebase/config'
     constructor(){
       super()
       this.state={
-        allPosts:[]
+        posts :[]
       }
     }
 
@@ -17,17 +17,18 @@ import {db} from '../../firebase/config'
         .orderBy('createdAt','desc')
         .limit(3)
         .onSnapshot(docs => {
-            let publicaciones = []
+            let posts = []
             docs.forEach(doc => {
-              publicaciones.push({
+              posts.push({
                 id: doc.id,
                 data:doc.data()
+              
               })
             })
 
     this.setState({
 
-      allPosts : publicaciones
+      posts : posts
  })
 })
 }
@@ -36,9 +37,9 @@ render(){
         <>
       
 
-          <View tyle={styles.container3} >
+          <View tyle={styles.container1} >
           <FlatList
-            data={this.state.allPosts}
+            data={this.state.posts}
             keyExtractor={item => item.id.toString()}
             renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} />}
           />

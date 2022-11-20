@@ -9,7 +9,8 @@ class Camara extends Component{
         super(props)
         this.metodosCamara = null
         this.state={
-            mostrarCamara: false,
+            permissions: false,
+            mostrarCamara: true,
             foto: '',
         }
        
@@ -18,7 +19,7 @@ class Camara extends Component{
         Camera.requestCameraPermissionsAsync()
         .then(()=> {
             this.setState({
-                mostrarCamara: true,
+                permissions: true,
             })
         })
         .catch((error)=> console.log(error))
@@ -29,6 +30,7 @@ class Camara extends Component{
         .then((foto)=>{
             console.log(foto)
             this.setState({
+                mostrarCamara: false,
                 foto: foto.uri,
             })
         })
@@ -36,7 +38,7 @@ class Camara extends Component{
     }
 
     aceptarImagen(){
-      fetch(this.state.fotoUri)
+      fetch(this.state.foto)
       .then(imagenEnBinario => imagenEnBinario.blob())
       .then(imagen => {
           const ref = storage.ref(`fotos/${Date.now()}.jpg`)
@@ -59,6 +61,7 @@ class Camara extends Component{
         return (
           <View style={styles.container}>
         {
+            this.state.permissions ?
             this.state.mostrarCamara ?
             <>
                 <Camera
@@ -70,10 +73,10 @@ class Camara extends Component{
                     <Text>Tomar foto</Text>
                 </TouchableOpacity>
             </>
-            : this.state.mostrarCamara === false && this.state.fotoUri != '' ?
+            : 
             <View>
                 <Image
-                source={{uri: this.state.fotoUri}}
+                source={{uri: this.state.foto}}
                 style={styles.image}
                 />
                 <TouchableOpacity onPress={()=> this.aceptarImagen()}>
@@ -87,7 +90,8 @@ class Camara extends Component{
                     </Text>
                 </TouchableOpacity>
             </View>
-            : <Text>No me haz dado permisos para mostrar la foto</Text>
+            : 
+            <Text>No me haz dado permisos para mostrar la foto</Text>
         }
       </View>
     )
