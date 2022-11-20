@@ -34,9 +34,7 @@ import {db} from '../../firebase/config'
 render(){
     return(
         <>
-          <View style={styles.container1} >
-             <Text>Home</Text>
-          </View>
+      
 
           <View tyle={styles.container3} >
           <FlatList

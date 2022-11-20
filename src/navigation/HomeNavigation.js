@@ -13,6 +13,9 @@ export default class HomeNavigation extends Component {
         <Stack.Screen
             name='Home'
             component={Home}
+            options={{
+              headerShown: false
+          }}
         />
         {/* <Stack.Screen
             name='FriendProfile'

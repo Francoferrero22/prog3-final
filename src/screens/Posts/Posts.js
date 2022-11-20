@@ -67,6 +67,9 @@ class Posts extends Component {
 }
 
 const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
     input:{
         borderWidth:1,
         height:48

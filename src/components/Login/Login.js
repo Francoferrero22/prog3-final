@@ -1,5 +1,5 @@
 import { auth } from "../../firebase/config";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native'
 import React, { Component } from 'react'
 
 class Login extends Component {
@@ -8,7 +8,8 @@ class Login extends Component {
         this.state = {
             email:'',
             password:'',
-            login: false
+            login: false,
+            error: ''
         }
     }
     onSubmit(email,password){
@@ -16,34 +17,41 @@ class Login extends Component {
         .then(resp => {this.setState({login: true})
             this.props.navigation.navigate('TabNavigation')
         })
-        .catch( err => console.log(err))
+        .catch(error => this.setState({
+            error: error.message
+        }))
     }
 
 render() {
     console.log(this.props)
     return (
-      <View>
-        <Text>Login</Text>
+      <View style={styles.container}>
+        <Text style={styles.titu}>Login</Text>
+        {this.state.error !== '' ? <Text >{this.state.error}</Text> : null}
+        <View style= {styles.inputView}>
         <TextInput
-               style={styles.input}
+               style={styles.TextInput}
             keyboardType='email-address'
             placeholder='Ingresa tu email'
             onChangeText={text => this.setState({email: text})}
             value={this.state.email}
         />
+        </View>
+        <View style= {styles.inputView}>
         <TextInput
-              style={styles.input}
+              style={styles.TextInput}
             keyboardType='default'
-            placeholder='Ingresa tu Password'
+            placeholder='Ingresa tu contraseña'
             onChangeText={text => this.setState({password: text})}
             value={this.state.password}
             secureTextEntry={true}
         />
+        </View>
         <View>
-            <TouchableOpacity onPress={()=> this.onSubmit(this.state.email,this.state.password)}>
+            <TouchableOpacity onPress={()=> this.onSubmit(this.state.email,this.state.password)} style={styles.loginBtn}>
                 <Text>Log In</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')}>
+            <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')} style={styles.registerBtn}>
               <Text>Registrate</Text>
             </TouchableOpacity>
           </View>
@@ -52,9 +60,47 @@ render() {
   }
 }
 const styles = StyleSheet.create({
-    input:{
-        borderWidth:1
-    }
-})
-
+    container:{
+      flex: 1,
+      backgroundColor: 'gray',
+      justifyContent:'center',
+      alignItems: 'center',
+    
+    },
+      inputView: {
+        backgroundColor: "blue",
+        borderRadius: 30,
+        width: "70%",
+        height: 45,
+        marginBottom: 20,
+        alignItems: "center",
+      },
+      
+      TextInput: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        marginLeft: 20,
+      },
+      loginBtn: {
+        width: "80%",
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        backgroundColor: "blue",
+        padding: 10,
+        marginLeft: 20,
+      },
+registerBtn: {
+    width: "80%",
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 30,
+        backgroundColor: "blue",
+        padding: 10,
+        marginLeft: 20,
+}
+  })
 export default Login

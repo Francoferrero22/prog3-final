@@ -19,7 +19,10 @@ return(
               options={{
                 headerShown: false
             }}/>
-          <Stack.Screen name ='TabNavigation'component= {TabNavigation}/>
+          <Stack.Screen name ='TabNavigation'component= {TabNavigation}
+            options={{
+              headerShown:false
+             }}/>
         </Stack.Navigator>
     </NavigationContainer>
 )}
