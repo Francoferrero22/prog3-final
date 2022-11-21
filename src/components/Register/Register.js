@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
-import { auth, db } from '../../firebase/config'
+import {db , auth} from '../../firebase/config'
 
 
 class Register extends Component {
@@ -21,7 +21,7 @@ class Register extends Component {
         auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(res => {
             db.collection('users').add({ 
-                owner: this.state.email,
+                owner: auth.currentUser.email,
                 userName: this.state.user,
                 bio: this.state.bio,
                 createdAt: Date.now(),
