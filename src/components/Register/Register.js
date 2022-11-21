@@ -45,6 +45,8 @@ class Register extends Component {
 
 render() {
         return (
+
+            
             <View style= {styles.container}>
                 <Text>REGISTER</Text>
                 {this.state.error !== '' ? <Text >{this.state.error}</Text> : null}
