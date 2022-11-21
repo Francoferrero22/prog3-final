@@ -24,6 +24,9 @@ class Posts extends Component {
             comments:[],
             foto : this.state.fotoUrl
         })
+        .then(resp => resp)
+            this.props.navigation.navigate('Home')
+        
         .then(resp => console.log('hizo el posteo'))
         .catch(err => console.log(err))
 
@@ -35,8 +38,6 @@ class Posts extends Component {
             
         })
     }
-
-
 
 
     render() {
@@ -57,7 +58,7 @@ class Posts extends Component {
                 />
                 <TouchableOpacity
                 onPress={()=> this.enviarPost(this.state.description, this.state.foto)}
-              style={styles.botton}  >
+              style={styles.botton} >
                     <Text>Enviar Post</Text>
                 </TouchableOpacity>
               </View>  
