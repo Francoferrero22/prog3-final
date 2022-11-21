@@ -1,3 +1,6 @@
+
+//TODO LO DE ABAJO NO
+
 import React, { Component } from 'react';
 import {View, Text, StyleSheet, FlatList} from 'react-native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
