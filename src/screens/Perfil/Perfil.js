@@ -1,73 +1,87 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import AsyncStorage from '@react-native-async-storage/async-storage'
-import { db } from '../../firebase/config';
-import Posts from '../Posts/Posts'
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
+import { auth, db } from '../../firebase/config';
+//import avatar from '../../assets/avatar.jpeg';
+import Posts from '../../components/Posts/Posts'
 
-const Stack = createNativeStackNavigator();
 
-class Perfil extends Component {
+class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posteos: [],
-            username:'',
-            email:'',
-            bio: '', 
-            foto: '',
-            cantidadPosts: '',
-            miPerfil: false,    
+            dataUsuario: {},
+            props: props,
+            posteos: []
         }
     }
 
 
-    async componentDidMount() {
-        const username = await this.getRememberedUser();
-        this.setState({
-            username: username || '',
-            rememberMe: username ? true : false
-        });
+    componentDidMount() {
+      
+        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
+            docs => {
+                docs.forEach(doc => {
+                    this.setState({
+                        dataUsuario: doc.data()
+                    })
+                })
+            })
+
+        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
+            docs => {
+                let posts = [];
+                docs.forEach(doc => {
+                    posts.push({
+                        id: doc.id,
+                        data: doc.data()
+                    })
+                });
+                this.setState({
+                    posteos: posts
+                })
+            }
+        )
 
     }
-    getRememberedUser = async () => {
-        try {
-            console.log('asd')
-            // const username = await AsyncStorage.getItem('10');
-            /*if (username !== null) {
-                 db.FindBy(username)
-    
-                
-            } */
 
-        } catch (error) {
+  
 
-        }
+
+    logout(){
+        auth.signOut()
+        .then(()=> this.props.navigation.navigate('Login'))
     }
 
 
 
     render() {
         return (
-            <View>
-             <Text>Mi perfil </Text>
-            <Text> {this.state.username}</Text>
-            <Text> {this.state.bio}</Text>
-            <Text> {this.state.foto}</Text>
-            <Text> {this.state.cantidadPosts}</Text>
-            {this.state.posteos && this.state.posteos.length > 0 && 
-            <FlatList
-                data={this.state.posts}
-                keyExtractor={(post) => post.id}
-                renderItem={({ item }) => 
-                <Posts postData={item}  />}
-
-                ></FlatList>}
-            <Text> </Text>
-            <Text> </Text>
-            <Text> </Text>
-
-
+            <View style={style.container}>
+                <View style={style.containerPic}>
+                    <Image
+                        style={style.image}
+                        source={this.state.dataUsuario.photo === '' ? '' : this.state.dataUsuario.photo}
+                    />
+                    <View style={style.containerText}>
+                        <Text style={style.username}>{this.state.dataUsuario.userName}</Text>
+                        <Text style={style.username}>{this.state.dataUsuario.owner}</Text>
+                        {this.state.dataUsuario.bio != '' ? 
+                                <Text style={style.bio}>{this.state.dataUsuario.bio}</Text>
+                            : null}
+                        <Text style={style.bio}>Cantidad de posteos: {this.state.posteos.length}</Text>
+                        <FlatList
+                            data={this.state.posteos}
+                            keyExtractor={item => item.id.toString()}
+                            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} profile={true} />}
+                        />
+                        <TouchableOpacity onPress={() => this.logout()}>
+                            <Text style={style.logout}>Cerrar sesión</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                
+                
+              
             </View>
 
         )
@@ -80,22 +94,42 @@ class Perfil extends Component {
 
 
 }
+
 const style = StyleSheet.create({
     container: {
-
-        textAlign: 'center',
-        padding: '10px',
-        width: '100%',
-        height: '100%',
-        padding: '4px',
-        backgroundColor: 'blue',
-
-
+        flex: 1,
+        padding: 15,
+        //backgroundColor: 'rgb(0,0,0)'
     },
-    zona: {
-
-        borderColor: 'white'
+    image: {
+        width: 100,
+        height: 100
+    },
+    containerPic: {
+        flex: 2,
+        flexDirection: 'row'
+    },
+    containerText: {
+        margin: 15,
+        width: '70vw',
+        flexGrow: 1,
+        flex: 1
+    },
+    username: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: 'rgb(0,0,0)'
+    },
+    bio: {
+        fontSize: 16,
+        color: 'rgb(0,0,0)'
+    },
+    posteos: {
+        marginTop: 120
+    },
+    logout: {
+        color: '#0d9900'
     }
 })
+export default Profile;
 
-export default Perfil;

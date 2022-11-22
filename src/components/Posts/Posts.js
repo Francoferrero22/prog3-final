@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
-
+import { db } from '../../firebase/config';
 class Posts extends Component {
 
     constructor(props){
@@ -12,14 +12,29 @@ class Posts extends Component {
         }
     }
 
+    borrarPost (){
+      console.log('borrado!', this.props.id, this.props.data)
+      db.collection('posts').doc(this.props.id).delete()
+  }
+
+  componentDidMount() {
+    console.log(this.props, 'barrani')
+  }
+  
+
   render() {
     return (
       <View >
-    <Image   style={styles.photo}
-                    source={{uri: this.props.data.foto}}
-                    resizeMode='cover'/>
+        <View> 
+          {this.props.profile && 
+          <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> borrar post </Text> </TouchableOpacity> </View> }
+          <Image   
+            style={styles.photo}
+            source={{uri: this.props.data.foto}}
+            resizeMode='cover'/>
+          </View>
         <Text>{this.props.data.description}</Text>
-        <Text>{this.props.data.owner}</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario')}> <Text>{this.props.data.owner}</Text></TouchableOpacity>
 
         
         {
