@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
-import { auth, db } from '../../firebase/config';
+import { db } from '../../firebase/config';
 //import avatar from '../../assets/avatar.jpeg';
 import Posts from '../../components/Posts/Posts'
 
-
-class Perfil extends Component {
+class PerfilUsuario extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,8 +16,9 @@ class Perfil extends Component {
 
 
     componentDidMount() {
-      
-        db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot(
+        console.log(this.props, this.props.route, 'data ruta')
+    
+        db.collection('users').where('owner', '==', this.props.route.params.email).onSnapshot(
             docs => {
                 docs.forEach(doc => {
                     this.setState({
@@ -27,7 +27,7 @@ class Perfil extends Component {
                 })
             })
 
-        db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(
+        db.collection('posts').where('owner', '==', this.props.route.params.email).onSnapshot(
             docs => {
                 let posts = [];
                 docs.forEach(doc => {
@@ -42,21 +42,16 @@ class Perfil extends Component {
             }
         )
 
+        console.log(this.state.dataUsuario, this.state.posteos)
+
     }
-
-  
-
-
-    logout(){
-        auth.signOut()
-        .then(()=> this.props.navigation.navigate('Login'))
-    }
-
-
 
     render() {
         return (
             <View style={style.container}>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('TabNavigation')}>
+                    
+                </TouchableOpacity>
                 <View style={style.containerPic}>
                     <Image
                         style={style.image}
@@ -74,14 +69,11 @@ class Perfil extends Component {
                             keyExtractor={item => item.id.toString()}
                             renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} profile={true} />}
                         />
-                        <TouchableOpacity onPress={() => this.logout()}>
-                            <Text style={style.logout}>Cerrar sesión</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
                 
                 
-              
+             
             </View>
 
         )
@@ -94,12 +86,16 @@ class Perfil extends Component {
 
 
 }
-
 const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 15,
-        //backgroundColor: 'rgb(0,0,0)'
+        backgroundColor: 'rgb(0,0,0)'
+    },
+    back:{
+        marginBottom: 15,
+        marginTop: 10,
+        marginLeft: 10
     },
     image: {
         width: 100,
@@ -118,11 +114,11 @@ const style = StyleSheet.create({
     username: {
         fontSize: 20,
         fontWeight: '600',
-        color: 'rgb(0,0,0)'
+        color: 'rgb(255,255,255)'
     },
     bio: {
         fontSize: 16,
-        color: 'rgb(0,0,0)'
+        color: 'rgb(255,255,255)'
     },
     posteos: {
         marginTop: 120
@@ -131,5 +127,5 @@ const style = StyleSheet.create({
         color: '#0d9900'
     }
 })
-export default Perfil;
 
+export default PerfilUsuario;
