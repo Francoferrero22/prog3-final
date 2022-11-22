@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, StyleSheet , Image} from 'react-native'
 import React, { Component } from 'react'
 import {db , auth} from '../../firebase/config'
 
@@ -16,7 +16,7 @@ class Register extends Component {
 
         }
     }
-
+  
     onSubmit(){
         auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(res => {
@@ -25,8 +25,8 @@ class Register extends Component {
                 userName: this.state.user,
                 bio: this.state.bio,
                 createdAt: Date.now(),
-/*                 photo: this.state.photo
- */        })
+                /* foto: this.state.foto */
+         })
         .then(() => {
             this.setState({ 
             email: '',
@@ -83,7 +83,8 @@ render() {
                     onChangeText={text => this.setState({ bio: text })}
                     value={this.state.bio} />
                     </View>
-                <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
+             
+       <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
                     <Text >Registrar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.registerBtn}>
