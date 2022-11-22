@@ -34,7 +34,7 @@ class Posts extends Component {
             resizeMode='cover'/>
           </View>
         <Text>{this.props.data.description}</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario')}> <Text>{this.props.data.owner}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text>{this.props.data.owner}</Text></TouchableOpacity>
 
         
         {

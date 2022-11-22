@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { db } from '../../firebase/config';
 //import avatar from '../../assets/avatar.jpeg';
-
+import Posts from '../../components/Posts/Posts'
 
 class PerfilUsuario extends Component {
     constructor(props) {
@@ -16,6 +16,8 @@ class PerfilUsuario extends Component {
 
 
     componentDidMount() {
+        console.log(this.props, this.props.route, 'data ruta')
+    
         db.collection('users').where('owner', '==', this.props.route.params.email).onSnapshot(
             docs => {
                 docs.forEach(doc => {
@@ -40,6 +42,8 @@ class PerfilUsuario extends Component {
             }
         )
 
+        console.log(this.state.dataUsuario, this.state.posteos)
+
     }
 
     render() {
@@ -55,20 +59,21 @@ class PerfilUsuario extends Component {
                     />
                     <View style={style.containerText}>
                         <Text style={style.username}>{this.state.dataUsuario.userName}</Text>
+                        <Text style={style.username}>{this.state.dataUsuario.owner}</Text>
                         {this.state.dataUsuario.bio != '' ? 
                                 <Text style={style.bio}>{this.state.dataUsuario.bio}</Text>
                             : null}
                         <Text style={style.bio}>Cantidad de posteos: {this.state.posteos.length}</Text>
+                        <FlatList
+                            data={this.state.posteos}
+                            keyExtractor={item => item.id.toString()}
+                            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} profile={true} />}
+                        />
                     </View>
                 </View>
                 
                 
-                <FlatList 
-                        style={style.posteos}
-                        data={this.state.posteos}
-                        keyExtractor={item => item.id.toString()}
-                        renderItem={({item}) => <Card data={item}/>}
-                />
+             
             </View>
 
         )
@@ -81,6 +86,46 @@ class PerfilUsuario extends Component {
 
 
 }
-
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 15,
+        backgroundColor: 'rgb(0,0,0)'
+    },
+    back:{
+        marginBottom: 15,
+        marginTop: 10,
+        marginLeft: 10
+    },
+    image: {
+        width: 100,
+        height: 100
+    },
+    containerPic: {
+        flex: 2,
+        flexDirection: 'row'
+    },
+    containerText: {
+        margin: 15,
+        width: '70vw',
+        flexGrow: 1,
+        flex: 1
+    },
+    username: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: 'rgb(255,255,255)'
+    },
+    bio: {
+        fontSize: 16,
+        color: 'rgb(255,255,255)'
+    },
+    posteos: {
+        marginTop: 120
+    },
+    logout: {
+        color: '#0d9900'
+    }
+})
 
 export default PerfilUsuario;

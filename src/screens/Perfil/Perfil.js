@@ -5,7 +5,7 @@ import { auth, db } from '../../firebase/config';
 import Posts from '../../components/Posts/Posts'
 
 
-class Profile extends Component {
+class Perfil extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,7 +60,7 @@ class Profile extends Component {
                 <View style={style.containerPic}>
                     <Image
                         style={style.image}
-                        source={this.state.dataUsuario.photo === '' ? '' : this.state.dataUsuario.photo}
+                        source={this.state.dataUsuario.photo === '' ? avatar : this.state.dataUsuario.photo}
                     />
                     <View style={style.containerText}>
                         <Text style={style.username}>{this.state.dataUsuario.userName}</Text>
@@ -131,5 +131,5 @@ const style = StyleSheet.create({
         color: '#0d9900'
     }
 })
-export default Profile;
+export default Perfil;
 

@@ -35,7 +35,7 @@ class Register extends Component {
             bio: '',
             error: ''
         })
-        this.state.navigation.navigate('Login') })
+        this.props.navigation.navigate('Login') })
     })    
     .catch(error => this.setState({
         error: error.message
