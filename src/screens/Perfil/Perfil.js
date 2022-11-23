@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { auth, db } from '../../firebase/config';
-//import avatar from '../../assets/avatar.jpeg';
+import avatar from '../../../assets/avatar.png';
 import Posts from '../../components/Posts/Posts'
 
 
