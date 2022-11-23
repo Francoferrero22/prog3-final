@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, StyleSheet, orderBy} from 'react-native'
+import { Text, View, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth} from '../../firebase/config';
 import {FontAwesome} from '@expo/vector-icons' 
