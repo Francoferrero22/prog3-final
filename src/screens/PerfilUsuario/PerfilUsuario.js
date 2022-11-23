@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { db } from '../../firebase/config';
-//import avatar from '../../assets/avatar.jpeg';
+import avatar from '../../../assets/avatar.png';
 import Posts from '../../components/Posts/Posts'
 import {FontAwesome} from '@expo/vector-icons'
 
@@ -58,7 +58,7 @@ class PerfilUsuario extends Component {
                 <View style={style.containerPic}>
                     <Image
                         style={style.image}
-                        source={this.state.dataUsuario.photo === '' ? avatar : this.state.dataUsuario.photo}
+                        source={this.state.dataUsuario.foto === '' ? avatar : this.state.dataUsuario.foto}
                     />
                     <View style={style.containerText}>
                         <Text style={style.username}>{this.state.dataUsuario.userName}</Text>
