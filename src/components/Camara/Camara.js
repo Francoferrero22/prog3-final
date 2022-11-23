@@ -60,6 +60,9 @@ class Camara extends Component{
       console.log('hola')
         return (
           <View style={styles.container}>
+             <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
+            <FontAwesome name='backward' color='black' size={16} />
+            </TouchableOpacity>
         {
             this.state.permissions ?
             this.state.mostrarCamara ?
