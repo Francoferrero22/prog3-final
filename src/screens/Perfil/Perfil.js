@@ -78,7 +78,7 @@ class Perfil extends Component {
                         <FlatList
                             data={this.state.posteos}
                             keyExtractor={item => item.id.toString()}
-                            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} profile={true} />}
+                            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} Perfil={true} />}
                         />
                         <TouchableOpacity onPress={() => this.logout()}>
                             <Text style={style.logout}>Cerrar sesión</Text>
