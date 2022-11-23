@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react
 import { auth, db } from '../../firebase/config';
 import avatar from '../../../assets/avatar.png';
 import Posts from '../../components/Posts/Posts'
+import {FontAwesome} from '@expo/vector-icons'
 
 
 class Perfil extends Component {
@@ -57,6 +58,11 @@ class Perfil extends Component {
     render() {
         return (
             <View style={style.container}>
+
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
+                        <FontAwesome name='backward' color='black' size={16} />
+                    </TouchableOpacity>
+                    
                 <View style={style.containerPic}>
                     <Image
                         style={style.image}
