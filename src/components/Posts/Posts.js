@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
-import { db } from '../../firebase/config';
+import { db, auth} from '../../firebase/config';
 import {FontAwesome} from '@expo/vector-icons' 
 import firebase from 'firebase'
 
@@ -9,10 +9,9 @@ class Posts extends Component {
   constructor(props){
     super(props)
     this.state = {
-        likesCount: props.data.likes.length,
+        likesCount:props.data.likes.length,
         commentCount: props.data.comments.length,
-        isMyLike: false,
-        comments: props.data.comments
+        isMyLike: false
     }
 }
 
@@ -25,9 +24,9 @@ componentDidMount(){
   }
 }
 
-
 like(){
-  db.collection('posts')
+  db
+  .collection('posts')
   .doc(this.props.id)
   .update({
     likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
@@ -58,6 +57,7 @@ unlike(){
   .catch(e => console.log(e))
 }
 
+
     borrarPost (){
       console.log('borrado!', this.props.id, this.props.data)
       db.collection('posts').doc(this.props.id).delete()
@@ -85,11 +85,11 @@ unlike(){
         <View>
 
 
-        <Text>{this.state.likesCount}</Text>  
+        <Text>Likes: {this.state.likesCount}</Text>  
         {
            this.state.isMyLike ?
                 <TouchableOpacity onPress={()=> this.unlike()}>
-                    <FontAwesome name='heart' color='black' size={16} />
+                    <FontAwesome name='heart' color='red' size={16} />
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={()=> this.like()}>
