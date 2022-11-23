@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {Camera} from 'expo-camera'
 import { TouchableOpacity } from 'react-native'
 import { storage } from '../../firebase/config'
+import { FontAwesome } from '@expo/vector-icons'
 
 class Camara extends Component{
     constructor(props){

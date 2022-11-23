@@ -63,6 +63,7 @@ class Posts extends Component {
               style={styles.botton} >
                     <Text>Enviar Post</Text>
                 </TouchableOpacity>
+            
               </View>  
             }
         </View>

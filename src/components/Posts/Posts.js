@@ -70,14 +70,17 @@ unlike(){
     return (
       <View >
         <View> 
-          { this.props.perfil && 
+          { this.props.profile && 
           <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> borrar post </Text> </TouchableOpacity> </View> }
           <Image   
             style={styles.photo}
             source={{uri: this.props.data.foto}}
             resizeMode='cover'/>
         <Text>{this.props.data.description}</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text>{this.props.data.owner}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text>{this.props.data.owner}
+        </Text>
+        </TouchableOpacity>
+        
         </View>
         <View>
 
