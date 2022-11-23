@@ -78,10 +78,9 @@ unlike(){
             style={styles.photo}
             source={{uri: this.props.data.foto}}
             resizeMode='cover'/>
-          </View>
         <Text>{this.props.data.description}</Text>
         <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text>{this.props.data.owner}</Text></TouchableOpacity>
-
+        </View>
         <View>
 
 
