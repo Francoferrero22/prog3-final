@@ -13,7 +13,7 @@ class Register extends Component {
             password: '',
             bio: '',
             error:'',
-            foto: '',
+            foto: {},
 
         }
     }
@@ -35,6 +35,7 @@ class Register extends Component {
         error: error.message
     }))
     }
+   
     cuandoSubaLaImagen(url){
         this.setState({
             foto: url,
@@ -42,6 +43,8 @@ class Register extends Component {
             
         })
     }
+  
+     
 render() {
         return (
 
@@ -82,17 +85,23 @@ render() {
                     onChangeText={text => this.setState({ bio: text })}
                     value={this.state.bio} />
                     </View>
-                    { 
+                     { 
                     this.state.mostrarCamara ?
                   
                     <View style={{width:'100vw', height:'100vh'}}>
-                        <Camara cuandoSubaLaImagen={url =>this.cuandoSubaImagen(url)}/>
+                        <Camara cuandoSubaLaImagen={url =>this.cuandoSubaLaImagen(url)}/>
                     </View>
              :
              <TouchableOpacity onPress={()=> this.setState({mostrarCamara: true})}>
-                 <Text> Subir Imagen de Perfil</Text>
-             </TouchableOpacity>  }
-       <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
+                 <Text> Subir Imagen de Perfil</Text> 
+          </TouchableOpacity>  }
+
+     
+ 
+ 
+ 
+ 
+ <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
                     <Text >Registrar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.registerBtn}>
