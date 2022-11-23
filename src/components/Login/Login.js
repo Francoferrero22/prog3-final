@@ -9,9 +9,24 @@ class Login extends Component {
             email:'',
             password:'',
             login: false,
-            error: ''
+            error: '',
+            //loaderActive: true
         }
     }
+
+   // componentDidMount(){
+      //auth.onAuthStateChanged(
+        //  user => {
+          //    if(user) {
+            //      this.props.navigation.navigate('TabNavigation')
+           //   } else {
+             //     this.setState({
+               //       loaderActive: false
+                 // })
+              //}
+          //}
+      //)
+  //}
     onSubmit(email,password){
         auth.signInWithEmailAndPassword(email, password)
         .then(resp => {this.setState({login: true})

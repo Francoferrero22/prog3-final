@@ -102,7 +102,7 @@ unlike(){
         <View>
           <Text>Comentarios: {this.state.commentCount} </Text>
           <TouchableOpacity onPress={() => this.props.navigation.navigate(
-            'Comments', {email: this.props.data.owner}
+            'Comments', {id: this.props.id}
             )}>
             <Text>Agregar comentario</Text>
           </TouchableOpacity>
