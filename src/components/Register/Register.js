@@ -18,7 +18,7 @@ class Register extends Component {
         }
     }
   
-    onSubmit(){
+    onSubmit(email, user, password, bio, foto){
         auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
         .then(res => {
             db.collection('users').add({ 
