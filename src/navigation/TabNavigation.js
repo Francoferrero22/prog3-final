@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 import Perfil from '../screens/Perfil/Perfil'
-import PerfilUsuario from '../components/PerfilUsuario/PerfilUsuario'
+// import PerfilUsuario from '../components/PerfilUsuario/PerfilUsuario'
 import Posts from '../screens/Posts/Posts'
 import {FontAwesome} from '@expo/vector-icons'
 import HomeNavigation from './HomeNavigation'
