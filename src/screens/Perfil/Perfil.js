@@ -45,10 +45,6 @@ class Perfil extends Component {
 
     }
 
-      borrarPost (){
-      console.log('borrado!', this.props.id, this.props.data)
-      db.collection('posts').doc(this.props.id).delete()
-  }
 
 
     logout(){
