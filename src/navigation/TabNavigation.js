@@ -26,7 +26,9 @@ return(
         }}/>
          { <Tab.Screen name= 'Buscador'   component= {Buscador}   options={{
             tabBarIcon: () => <FontAwesome name='search' size={32} color='blue' />
+
         }}/> }
+        
         
 
         </Tab.Navigator>
