@@ -6,6 +6,7 @@ import PerfilUsuario from '../components/PerfilUsuario/PerfilUsuario'
 import Posts from '../screens/Posts/Posts'
 import {FontAwesome} from '@expo/vector-icons'
 import HomeNavigation from './HomeNavigation'
+import Buscador from "../screens/Buscador/Buscador"
 
 
 const Tab = createBottomTabNavigator()
@@ -23,6 +24,10 @@ return(
            <Tab.Screen name= 'Perfil' component= {Perfil}   options={{
             tabBarIcon: () => <FontAwesome name='user' size={32} color='blue' />
         }}/>
+         { <Tab.Screen name= 'Buscador'   component= {Buscador}   options={{
+            tabBarIcon: () => <FontAwesome name='search' size={32} color='blue' />
+        }}/> }
+        
 
         </Tab.Navigator>
 ) }

@@ -1,138 +1,92 @@
-import { Text, View, StyleSheet, FlatList, TextInput } from 'react-native'
+import { Text, View, FlatList, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from  '../../firebase/config'
-import {Searchbar} from "react-native-paper"
+import {db} from  '../../firebase/config'
+
 
 class Buscador extends Component {
     constructor(props) {
-        super(props)
-        this.state = {
-            buscar: false,
-            value: "",
-            perfiles: [],
-            perfilesFiltrados: [],
-            error: ""
+        super(props);
+        this.state =
+            {usuarios: [],
+            valorInput: ""};
         }
-    }
+        componentDidMount(){
+            db.collection('users').onSnapshot(docs => {
+                let users = []
+                docs.forEach(doc => {
+                  users.push({
+                    id: doc.id,
+                    data: doc.data()
+                  })
+                })
+                this.setState({
+                  usuarios: users,
+                },
+                () => console.log(this.state.usuarios)
+                )
+              })
+            }
 
-componentDidMount() {
-    db.collection('users').onSnapshot
-    
-    docs => {
-
-        let usuarios = []
-
-        docs.forEach((doc) => {
-            usuarios.push({
-                id:doc.id,
-                data:doc.data()
-            })
-        })
-
-        this.setState({
-            perfiles: usuarios, buscar: true
-        })
-    }
-}
-
-preventSubmit(e){
-    e.preventDefault()
-
-    this.setState({error: ""})
-
-    let textoFilter = this.state.value.toLowerCase
-
-    if (this.state.value === "") {
-        this.setState({CampoNoVacio: "¡No puedes enviar un campo vacío!"})
-    } else {
-        this.setState({CampoNoVacio:""})
-
-        let usuariosFiltrados = this.state.perfiles.filter(perfil => perfil.data.username?.toLowerCase().includes(textoFilter))
-
-        if(usuariosFiltrados.length === 0)
-        return this.setState({ error: "¡Ese usuario no existe!", usuariosFiltrados:[]})
-
-        this.setState({ perfilesFiltrados: usuariosFiltrados})
-    }
-}
-
-controlChanges(e){
-    e.preventDefault()
-
-    this.setState({error: ""})
-
-    if(e.target.value === ""){
-        this.setState({
-            perfilesFiltrados: []
-        })
-    } else {
-
-        let usuariosFiltrados = this.state.perfiles.filter(perfil => perfil.data.username?.toLowerCase().includes(textoFilter))
-
-        if(usuariosFiltrados.length === 0)
-        return this.setState({ error: "¡Ese usuario no existe!", usuariosFiltrados:[]})
-
-        this.setState({ perfilesFiltrados: usuariosFiltrados})
-    }
-}
-
-clear (){
-    this.setState({
-        buscar: false,
-        value: "",
-        result: [],
-        usuariosFiltrados: []
-    })
-}
-
-
-render() {
-    return (
-        <View style = {styles.Searchbar}>
-
-            <Searchbar 
-            style = {styles.inputSearch} placeholder="Buscar usuarios"
-            onChangeText= {text => (this.setState({value: text}))}
-            value={this.state.value}
-            onChange={(e) => this.controlChanges}
-
-            />
-
-            <Text style={styles.error}> {this.state.CampoNoVacio}</Text>
-
-            <Text>{this.state.usuariosFiltrados}</Text>
-
-            <FlatList
-
-                data={this.state.usuariosFiltrados}
-                keyExtractor={item => item.id.toString()}
-                renderItem={({ item }) => 
-
-                <View style = {styles.conteiner}>
-                    <Image source={item.data.photo}
-                           style={styles.image} />
-                    <Text style={styles.textName}> {this.data.username}</Text>
-                </View>
+            prevenirRefresch(event) {
+                event.preventDefault();
+            }
+            controlarCambiosDelInput(event) {
+                this.setState({valorInput: event.target.value}, ()=> this.props.filtrar(this.state.valorInput));
+            }
+            render() {
+                return (
+                    <View >
+                        <TextInput
+                            
+                            keyboardType='default'
+                            placeholder='Busca aca!'
+                            onChangeText={text => this.setState({buscar: text})}
+                            valorInput={this.state.buscar}
+                        />
+                            <TouchableOpacity onSubmit={event => this.prevenirRefresch(event)} onChange={(event=> this.controlarCambiosdelInput(event))} value={this.state.valorInput}>
+                                <Text>Search</Text>
+                            </TouchableOpacity>
+                      
+                    </View>
+                );
+                }
                }
-            />
+        //     const styles = StyleSheet.create({
+        //         container:{
+        //             flex:1,
+        //             justifyContent:'center',
+        //             alignItems:'center', 
+        //             backgroundColor: '#8fbc8f', 
+        //           },
+        //         input:{
+        //             borderWidth:2,
+        //             height:40,
+        //             width:'90%',
+        //             borderRadius:20,
+        //             borderColor:'black',
+        //             padding:10,
+        //             margin:10
+        //         },
+        //         to:{
+        //             width:200,
+        //             height:50,
+        //             margin: 5,
+        //             backgroundColor:'#9370db',
+        //             textAlign:'center',
+        //             borderRadius:40,
+        //             alignItems:'center',
+        //             justifyContent:'center',
+        //             marginTop:10, 
+        //             borderColor:'black',
+        //             borderWidth:2,
+                
+        //         },
+        //         bold:{
+        //             fontWeight: 'bold'
+            
+        //         }
+        // })
 
-        </View>
-    )
-}
-}
 
-const styles = StyleSheet.create({
-
-    Searchbar:{
-        textAlign: "center"
-    },
-
-    inputSearch:{
-        color: "#2d2d2e"
-
-
-    },
-
-})
-
+        
 export default Buscador
