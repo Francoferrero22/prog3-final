@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
+import { Text, View, TouchableOpacity, Image, StyleSheet, orderBy} from 'react-native'
 import React, { Component } from 'react'
 import { db, auth} from '../../firebase/config';
 import {FontAwesome} from '@expo/vector-icons' 
@@ -25,8 +25,7 @@ componentDidMount(){
 }
 
 like(){
-  db
-  .collection('posts')
+  db.collection('posts')
   .doc(this.props.id)
   .update({
     likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
@@ -42,8 +41,7 @@ like(){
 }
 
 unlike(){
-  db
-  .collection('posts')
+  db.collection('posts')
   .doc(this.props.id)
   .update({
     likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
