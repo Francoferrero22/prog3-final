@@ -7,7 +7,7 @@ import { storage } from '../../firebase/config'
 class Camara extends Component{
     constructor(props){
         super(props)
-        this.metodosCamara = null
+        this.metodosCamara = ''
         this.state={
             permissions: false,
             mostrarCamara: true,
@@ -20,6 +20,7 @@ class Camara extends Component{
         .then(()=> {
             this.setState({
                 permissions: true,
+                mostrarCamara: false
             })
         })
         .catch((error)=> console.log(error))
@@ -39,13 +40,13 @@ class Camara extends Component{
 
     aceptarImagen(){
       fetch(this.state.foto)
-      .then(imagenEnBinario => imagenEnBinario.blob())
+      .then(res => res.blob())
       .then(imagen => {
-          const ref = storage.ref(`fotos/${Date.now()}.jpg`)
-          ref.put(imagen)
+          const refStorage = storage.ref(`fotos/${Date.now()}.jpg`)
+          refStorage.put(imagen)
           .then(()=> {
-              ref.getDownloadURL()
-              .then((url)=> this.props.cuandoSubaLaImagen(url))
+              refStorage.getDownloadURL()
+              .then(url=> this.props.cuandoSubaLaImagen(url))
               .catch(err => console.log(err))
           })
 

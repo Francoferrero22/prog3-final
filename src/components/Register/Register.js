@@ -1,7 +1,7 @@
-import { Text, View, TouchableOpacity, TextInput, StyleSheet , Image} from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import React, { Component } from 'react'
 import {db , auth} from '../../firebase/config'
-
+import Camara from '../Camara/Camara'
 
 class Register extends Component {
     constructor(props){
@@ -13,6 +13,7 @@ class Register extends Component {
             password: '',
             bio: '',
             error:'',
+            foto: '',
 
         }
     }
@@ -25,24 +26,22 @@ class Register extends Component {
                 userName: this.state.user,
                 bio: this.state.bio,
                 createdAt: Date.now(),
-                /* foto: this.state.foto */
+                foto: this.state.foto,
          })
-        .then(() => {
-            this.setState({ 
-            email: '',
-            user: '',
-            password: '',
-            bio: '',
-            error: ''
-        })
+        .then(() => { 
         this.props.navigation.navigate('Login') })
     })    
     .catch(error => this.setState({
         error: error.message
     }))
     }
-    
-
+    cuandoSubaLaImagen(url){
+        this.setState({
+            foto: url,
+            mostrarCamara:false,
+            
+        })
+    }
 render() {
         return (
 
@@ -83,7 +82,16 @@ render() {
                     onChangeText={text => this.setState({ bio: text })}
                     value={this.state.bio} />
                     </View>
-             
+                    { 
+                    this.state.mostrarCamara ?
+                  
+                    <View style={{width:'100vw', height:'100vh'}}>
+                        <Camara cuandoSubaLaImagen={url =>this.cuandoSubaImagen(url)}/>
+                    </View>
+             :
+             <TouchableOpacity onPress={()=> this.setState({mostrarCamara: true})}>
+                 <Text> Subir Imagen de Perfil</Text>
+             </TouchableOpacity>  }
        <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
                     <Text >Registrar</Text>
                 </TouchableOpacity>
