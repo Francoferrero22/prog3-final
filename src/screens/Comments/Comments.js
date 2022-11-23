@@ -43,14 +43,9 @@ class Comments extends Component {
             comment: text
           })
         })
-
-        .then(()=> (this.setState({comments: ''})))
-        .catch(err => console.log(err))
         }
        
-      }
-
-     
+    }
 
     render() {
         console.log(this.props)
@@ -63,6 +58,10 @@ class Comments extends Component {
 
         <Text>Comentarios de esta publicación</Text>
         <View>
+
+        {this.state.data.length == 0 ? 
+            <Text>No hay comentarios previos, ¡sé el primero!</Text>
+        :
           <FlatList
           data={this.state.data.comments}
           keyExtractor={item => item.createdAt.toString()}
@@ -71,12 +70,12 @@ class Comments extends Component {
             <Text>{item.comment}</Text>
           </View>
             }
-          />
+          />}
         </View>
         <View>
           <TextInput
             onChangeText={text => this.setState({nuevoComentario: text})}
-             style = {styles.input}
+            style = {styles.input}
             keyboardType='default'
             placeholder='Hacé tu comentario!'
             value={this.state.nuevoComentario}

@@ -44,7 +44,7 @@ class Perfil extends Component {
         )
 
     }
-
+    
 
 
     logout(){
@@ -65,7 +65,7 @@ class Perfil extends Component {
                 <View style={style.containerPic}>
                     <Image
                         style={style.image}
-                        source={this.state.dataUsuario.foto === '' ? avatar : this.state.dataUsuario.foto}
+                        source={ ! this.state.dataUsuario.foto ? avatar : this.state.dataUsuario.foto}
                     />
                     <View style={style.containerText}>
                         <Text style={style.username}>{this.state.dataUsuario.userName}</Text>
