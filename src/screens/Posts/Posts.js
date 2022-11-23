@@ -15,14 +15,14 @@ class Posts extends Component {
         }
     }
 
-    enviarPost(description, foto){
+    enviarPost(description){
         db.collection('posts').add({
             owner: auth.currentUser.email,
             createdAt: Date.now(),
             description: description,
             likes:[],
             comments:[],
-            foto : this.state.fotoUrl
+            foto : this.state.foto
         })
         .then(resp => resp)
             this.props.navigation.navigate('Home')
@@ -33,7 +33,7 @@ class Posts extends Component {
     }
     cuandoSubaLaImagen(url){
         this.setState({
-            fotoUrl: url,
+            foto: url,
             mostrarCamara:false,
             
         })
