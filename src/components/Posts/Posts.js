@@ -72,7 +72,7 @@ unlike(){
     return (
       <View >
         <View> 
-          {this.props.profile && 
+          { this.props.profile && 
           <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> borrar post </Text> </TouchableOpacity> </View> }
           <Image   
             style={styles.photo}
