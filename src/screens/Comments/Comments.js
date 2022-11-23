@@ -28,9 +28,12 @@ class Comments extends Component {
 
     }
 
+    
     addComentario(idDoc, text){
-        db
-        .collection('posts')
+        if (this.state.nuevoComentario === "" || this.state.nuevoComentario === false) {
+            alert("¡No puedes enviar un campo vacío!")
+        }else{
+             db.collection('posts')
         .doc(idDoc)
         .update({
           comments: firebase.firestore.FieldValue.arrayUnion({
@@ -42,6 +45,8 @@ class Comments extends Component {
 
         .then(()=> (this.setState({comments: ''})))
         .catch(err => console.log(err))
+        }
+       
       }
 
      
