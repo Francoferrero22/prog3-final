@@ -2,6 +2,7 @@ import { Text, View, FlatList, TextInput, TouchableOpacity, StyleSheet } from 'r
 import React, { Component } from 'react'
 import {db, auth} from  '../../firebase/config'
 import firebase from 'firebase'
+import {FontAwesome} from '@expo/vector-icons'
 
 
 
@@ -55,6 +56,11 @@ class Comments extends Component {
         console.log(this.props)
         return (
             <View>
+
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
+            <FontAwesome name='backward' color='black' size={16} />
+            </TouchableOpacity>
+
         <Text>Comentarios de esta publicación</Text>
         <View>
           <FlatList

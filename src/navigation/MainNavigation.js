@@ -7,6 +7,7 @@ import Posts from '../screens/Posts/Posts';
 import Comments from '../screens/Comments/Comments';
 import TabNavigation from './TabNavigation';
 
+
 const Stack = createNativeStackNavigator();
 
 function MainNavigation() {
