@@ -27,7 +27,7 @@ return(
             tabBarIcon: () => <FontAwesome name='user' size={32} color='blue' />
         }}/>
         <Tab.Screen name= 'AgregarImagen' component= {AgregarImagen} options={{
-            tabBarIcon: () => <FontAwesome name='Arrow' size={32}/>
+            tabBarIcon: () => <FontAwesome name='arrow' size={32}/>
         }}/>
 
          { <Tab.Screen name= 'Buscador'   component= {Buscador}   options={{
