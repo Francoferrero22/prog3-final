@@ -56,6 +56,7 @@ class Camara extends Component{
   rechazarImagen(){
 
   }
+  
     
     render() {
       console.log('hola')
