@@ -73,7 +73,7 @@ class Comments extends Component {
 
           {this.state.data?.comments?.length === 0 ?
 
-          <><Text>No hay comentarios previos, ¡sé el primero!</Text><TextInput
+          <><Text>Aún no hay comentarios, ¡sé el primero!</Text><TextInput
                   onChangeText={text => this.setState({ nuevoComentario: text })}
                   style={styles.input}
                   keyboardType='default'
