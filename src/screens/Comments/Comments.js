@@ -11,6 +11,7 @@ class Comments extends Component {
         super(props) 
         this.state = {
             nuevoComentario:'',
+            comentariosOrdenados:[],
             id:'',
             data:{},
           }
@@ -23,11 +24,36 @@ class Comments extends Component {
             this.setState({
                 id: doc.id,
                 data: doc.data()
-            }, () => console.log(this.state.data))
+            }, () => this.ordenarComentario())
             console.log(doc)
         })
 
+        
+
     }
+
+     ordenarComentario(){
+      
+       let comentariosOrdenados = []
+       let comentariosAscendentes = this.state.data?.comments?.map((comentario)=>comentario.createdAt)
+
+       
+
+       comentariosAscendentes?.sort()
+       comentariosAscendentes?.reverse()
+       comentariosAscendentes?.map((comentario)=>(
+          comentariosOrdenados= comentariosOrdenados?.concat(this.state.data?.comments?.filter((nuevoComentario) => nuevoComentario.createdAt?.toString().includes(comentario?.toString()) ))
+         ))
+
+         
+         
+     this.setState({
+       comentariosOrdenados:comentariosOrdenados
+     })
+
+     
+  }
+
 
     
     addComentario(idDoc, text){
@@ -40,27 +66,30 @@ class Comments extends Component {
           comments: firebase.firestore.FieldValue.arrayUnion({
             owner:auth.currentUser.email,
             createdAt: Date.now(),
-            comment: text
+            comment: text,
           })
         })
         }
        
     }
 
+    
+
     render() {
-        console.log(this.props)
+      console.log(this.state.comentariosOrdenados)
+      console.log(this.state.data.comments)
         return (
             <View>
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
+            <TouchableOpacity style={styles.itemContainer} onPress={() => this.props.navigation.navigate('HomeNavigation')}>
             <FontAwesome name='backward' color='black' size={16} />
             </TouchableOpacity>
 
-        <Text>Comentarios de esta publicación</Text>
+        <Text style={styles.titulo}>Comentarios de esta publicación</Text>
         <View>
 
           <FlatList
-          data={this.state.data.comments}
+          data={this.state.comentariosOrdenados}
           keyExtractor={item => item.createdAt.toString()}
           renderItem={({item}) => <View>
             <Text>{item.owner} comentó: </Text>
@@ -75,7 +104,7 @@ class Comments extends Component {
 
           <><Text>Aún no hay comentarios, ¡sé el primero!</Text><TextInput
                   onChangeText={text => this.setState({ nuevoComentario: text })}
-                  style={styles.input}
+                  style={styles.inputSearch}
                   keyboardType='default'
                   placeholder='Hacé tu comentario!'
                   value={this.state.nuevoComentario} /></>
@@ -84,14 +113,14 @@ class Comments extends Component {
 
           <TextInput
             onChangeText={text => this.setState({nuevoComentario: text})}
-            style = {styles.input}
+            style={styles.inputSearch}
             keyboardType='default'
             placeholder='Hacé tu comentario!'
             value={this.state.nuevoComentario}
           />
         }
           
-          <TouchableOpacity onPress={()=> this.addComentario(this.state.id, this.state.nuevoComentario)}>
+          <TouchableOpacity onPress={()=> this.addComentario(this.state.id, this.state.nuevoComentario)} style={styles.button}>
             <Text>Enviar comentario</Text>
           </TouchableOpacity>
         </View>
@@ -103,10 +132,20 @@ class Comments extends Component {
 }
 
  const styles = StyleSheet.create({
-    input: {
-        borderWidth:1,
-        height:32
-      }
+
+  inputSearch: {
+    width: 400,
+    height: 30,
+    borderBottomColor: "brown"
+
+
+  }
+
+
+
+  
+
+
   })
 
  export default Comments

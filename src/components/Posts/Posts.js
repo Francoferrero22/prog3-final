@@ -24,7 +24,7 @@ componentDidMount(){
   }
 }
 
-like(){ //cuando el usuario clickee, que se le agregue su like al array de likes de ese posteo
+like(){ 
   db.collection('posts')
   .doc(this.props.id)
   .update({
