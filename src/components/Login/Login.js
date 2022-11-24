@@ -14,6 +14,16 @@ class Login extends Component {
         }
     }
 
+    
+    onSubmit(email,password){
+        auth.signInWithEmailAndPassword(email, password)
+        .then(resp => {this.setState({login: true})
+            this.props.navigation.navigate('TabNavigation')
+        })
+        .catch(error => this.setState({
+            error: error.message
+        }))
+    }
     componentDidMount(){
       auth.onAuthStateChanged(
          user => {
@@ -27,15 +37,6 @@ class Login extends Component {
           }
       )
   }
-    onSubmit(email,password){
-        auth.signInWithEmailAndPassword(email, password)
-        .then(resp => {this.setState({login: true})
-            this.props.navigation.navigate('TabNavigation')
-        })
-        .catch(error => this.setState({
-            error: error.message
-        }))
-    }
 
 render() {
     console.log(this.props)
