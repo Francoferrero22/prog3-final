@@ -59,9 +59,6 @@ class Comments extends Component {
         <Text>Comentarios de esta publicación</Text>
         <View>
 
-        {this.state.data.length == 0 ? 
-            <Text>No hay comentarios previos, ¡sé el primero!</Text>
-        :
           <FlatList
           data={this.state.data.comments}
           keyExtractor={item => item.createdAt.toString()}
@@ -70,9 +67,21 @@ class Comments extends Component {
             <Text>{item.comment}</Text>
           </View>
             }
-          />}
+          />
         </View>
         <View>
+
+          {this.state.data?.comments?.length === 0 ?
+
+          <><Text>No hay comentarios previos, ¡sé el primero!</Text><TextInput
+                  onChangeText={text => this.setState({ nuevoComentario: text })}
+                  style={styles.input}
+                  keyboardType='default'
+                  placeholder='Hacé tu comentario!'
+                  value={this.state.nuevoComentario} /></>
+
+          :
+
           <TextInput
             onChangeText={text => this.setState({nuevoComentario: text})}
             style = {styles.input}
@@ -80,6 +89,8 @@ class Comments extends Component {
             placeholder='Hacé tu comentario!'
             value={this.state.nuevoComentario}
           />
+        }
+          
           <TouchableOpacity onPress={()=> this.addComentario(this.state.id, this.state.nuevoComentario)}>
             <Text>Enviar comentario</Text>
           </TouchableOpacity>

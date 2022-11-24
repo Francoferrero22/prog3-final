@@ -24,7 +24,7 @@ componentDidMount(){
   }
 }
 
-like(){
+like(){ //cuando el usuario clickee, que se le agregue su like al array de likes de ese posteo
   db.collection('posts')
   .doc(this.props.id)
   .update({
@@ -88,7 +88,7 @@ unlike(){
         <Text>Likes: {this.state.likesCount}</Text>  
         {
            this.state.isMyLike ?
-                <TouchableOpacity onPress={()=> this.unlike()}>
+                <TouchableOpacity onPress={()=> this.unlike()}> 
                     <FontAwesome name='heart' color='red' size={16} />
                 </TouchableOpacity>
                 :
