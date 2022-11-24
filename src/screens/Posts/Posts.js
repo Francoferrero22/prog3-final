@@ -24,9 +24,9 @@ class Posts extends Component {
             comments:[],
             foto : this.state.foto
         })
-        .then(resp => resp)
+        .then(resp => {
             this.props.navigation.navigate('Home')
-        
+        })
         .then(resp => console.log('hizo el posteo'))
         .catch(err => console.log(err))
 
