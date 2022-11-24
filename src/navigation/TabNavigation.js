@@ -7,6 +7,8 @@ import Posts from '../screens/Posts/Posts'
 import {FontAwesome} from '@expo/vector-icons'
 import HomeNavigation from './HomeNavigation'
 import Buscador from "../screens/Buscador/Buscador"
+import Editar from '../screens/Editar/Editar'
+
 
 
 const Tab = createBottomTabNavigator()

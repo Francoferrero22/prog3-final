@@ -4,6 +4,7 @@ import { auth, db } from '../../firebase/config';
 import avatar from '../../../assets/avatar.png';
 import Posts from '../../components/Posts/Posts'
 import {FontAwesome} from '@expo/vector-icons'
+import Editar from '../../screens/Editar/Editar'
 
 
 class Perfil extends Component {
@@ -12,7 +13,8 @@ class Perfil extends Component {
         this.state = {
             dataUsuario: {},
             props: props,
-            posteos: []
+            posteos: [],
+            miPerfil:{}
         }
     }
 
@@ -79,6 +81,9 @@ class Perfil extends Component {
                             keyExtractor={item => item.id.toString()}
                             renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} Perfil={true} />}
                         />
+                         <TouchableOpacity onPress={() => this.props.navigation.navigate("Editar", {id: this.state.miPerfil.id })}>
+                         <Text >EDITAR PERFIL</Text>
+                            </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.logout()}>
                             <Text style={style.logout}>Cerrar sesión</Text>
                         </TouchableOpacity>

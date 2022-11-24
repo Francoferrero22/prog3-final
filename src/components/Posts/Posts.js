@@ -71,7 +71,7 @@ unlike(){
       <View >
         <View> 
           { this.props.Perfil && 
-          <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> borrar post </Text> </TouchableOpacity> </View> }
+          <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> BORRAR POST </Text> </TouchableOpacity> </View> }
           <Image   
             style={styles.photo}
             source={{uri: this.props.data.foto}}
