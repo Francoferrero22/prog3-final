@@ -14,14 +14,16 @@ class AgregarImagen extends Component {
         }
     }
 
-    enviarPost(description){
+    enviarPost(description, foto){
+        console.log(description, foto, 'sent')
+        console.log(auth.currentUser.email, description, foto, 'enviarpost')
         db.collection('posts').add({
             owner: auth.currentUser.email,
             createdAt: Date.now(),
             description: description,
             likes:[],
             comments:[],
-            foto : this.props.id
+            foto : foto
         })
         .then(resp => {
             this.props.navigation.navigate('Home')
@@ -36,6 +38,7 @@ class AgregarImagen extends Component {
             allowsEditing: true,
             aspect: [1],
         })
+        
         this.handleImagePicked(results);
        }
 
@@ -51,6 +54,7 @@ class AgregarImagen extends Component {
     };
 
     aceptarImagen(){
+        console.log('efecutado')
         fetch(this.state.foto)
         .then(res => res.blob())
         .then(imagen => {
@@ -58,7 +62,7 @@ class AgregarImagen extends Component {
             ref.put(imagen)
             .then(()=> {
                 ref.getDownloadURL()
-                .then((url)=> this.props.cuandoSubaLaImagen(url))
+                .then((url)=> this.cuandoSubaLaImagen(url))
                 .catch(err => console.log(err))
             })
   
@@ -66,6 +70,7 @@ class AgregarImagen extends Component {
         .catch(err => console.log(err))
     }
     cuandoSubaLaImagen(url){
+        console.log('url, ', url)
         this.setState({
             foto: url,
             mostrarCamara:false,

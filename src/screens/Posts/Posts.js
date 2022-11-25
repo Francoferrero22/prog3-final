@@ -16,6 +16,7 @@ class Posts extends Component {
     }
 
     enviarPost(description){
+        console.log(this.state.foto, 'foto url')
         db.collection('posts').add({
             owner: auth.currentUser.email,
             createdAt: Date.now(),
