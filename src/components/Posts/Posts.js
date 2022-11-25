@@ -68,43 +68,48 @@ unlike(){
 
   render() {
     return (
-      <View >
-        <View> 
+      <View style={styles.todoo}>
+        
+        
+        <View style={styles.todo}> 
           { this.props.Perfil && 
-          <View><TouchableOpacity onPress={() => this.borrarPost()}> <Text> BORRAR POST </Text> </TouchableOpacity> </View> }
+          <View><TouchableOpacity  onPress={() => this.borrarPost()} style={styles.todo2}> <Text> BORRAR POST </Text> </TouchableOpacity> </View> }
+          
+          <TouchableOpacity style={styles.todoa} onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text style={styles.todo}>{this.props.data.owner}
+        </Text>
+        </TouchableOpacity>
           <Image   
             style={styles.photo}
             source={{uri: this.props.data.foto}}
             resizeMode='cover'/>
-        <Text>{this.props.data.description}</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('PerfilUsuario', {email: this.props.data.owner})}> <Text>{this.props.data.owner}
-        </Text>
-        </TouchableOpacity>
+        <Text style={styles.todo}>{this.props.data.description}</Text>
+        
         
         </View>
         <View>
 
 
-        <Text>Likes: {this.state.likesCount}</Text>  
+        <Text style={styles.todo2}>Likes: {this.state.likesCount}</Text>
+        <Text style={styles.todo3}>Comentarios: {this.state.commentCount}</Text>   
         {
            this.state.isMyLike ?
                 <TouchableOpacity onPress={()=> this.unlike()}> 
-                    <FontAwesome name='heart' color='red' size={16} />
+                    <FontAwesome name='heart' color='red' size={25} />
                 </TouchableOpacity>
                 :
                 <TouchableOpacity onPress={()=> this.like()}>
-                    <FontAwesome name='heart-o' color='red' size={16} />
+                    <FontAwesome name='heart-o' color='red' size={25} />
                 </TouchableOpacity>
 
         }
         </View>
 
         <View>
-          <Text>Comentarios: {this.state.commentCount} </Text>
+          
           <TouchableOpacity onPress={() => this.props.navigation.navigate(
             'Comments', {id: this.props.id}
             )}>
-            <Text>Agregar comentario</Text>
+            <Text style={styles.todo4}>Agregar comentario</Text>
           </TouchableOpacity>
         </View>
 
@@ -114,8 +119,49 @@ unlike(){
 }
 const styles = StyleSheet.create({
   photo:{
-      height:250
+      height:250,
   },
+  titulo1:{
+    fontFamily: "Playfair Dispair",
+    fontWeight:"bold",
+    fontSize: 100,
+    marginLeft: 40
+
+  },
+  todo:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    fontWeight:"bold",
+    marginBottom:2,
+    marginTop: 20,
+    
+  },
+  todoa:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    fontWeight:"bold",
+    marginBottom:3,
+  },
+  todo2:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    fontWeight:"500",
+    marginBottom:6,
+    marginTop:5,
+    color:"black"
+  },
+  todo3:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    fontWeight:"500",
+    marginBottom:10,
+    fontWeight:"500"
+  },
+  todo4:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    marginBottom:5,
+    marginTop:5,
+    fontWeight:"bold",
+    fontSize:17
+
+  },
+  
  
 }) 
 export default Posts

@@ -50,7 +50,7 @@ render() {
 
             
             <View style= {styles.container}>
-                <Text>REGISTER</Text>
+                <Text style={styles.titulo}>Register</Text>
                 {this.state.error !== '' ? <Text >{this.state.error}</Text> : null}
                 <View style={styles.inputView}>
                 <TextInput 
@@ -93,7 +93,7 @@ render() {
                     </View>
              :
              <TouchableOpacity onPress={()=> this.setState({mostrarCamara: true})}>
-                 <Text> Subir Imagen de Perfil</Text> 
+                 <Text style={styles.texto}> Subir Imagen de Perfil</Text> 
           </TouchableOpacity>  }
 
      
@@ -102,10 +102,10 @@ render() {
  
  
  <TouchableOpacity onPress={()=>this.onSubmit()} style={styles.registerBtn}>
-                    <Text >Registrar</Text>
+                    <Text style={styles.texto}>Registrarme</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Login')} style={styles.registerBtn}>
-                    <Text >Si ya tenés un usuario, logueate acá</Text>
+                    <Text style={styles.texto}>Si ya tenés un usuario, logueate acá</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -113,9 +113,19 @@ render() {
 }
 
 const styles = StyleSheet.create({
+    titulo:{
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+        textAlign: "center",
+        fontWeight:"bold",
+        fontSize:100
+      },
+      texto:{
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+        textAlign: "center",
+        fontWeight:"bold",
+      },
     container:{
       flex: 1,
-      backgroundColor: 'gray',
       justifyContent:'center',
       alignItems: 'center',
     
@@ -127,6 +137,10 @@ const styles = StyleSheet.create({
         height: 45,
         marginBottom: 20,
         alignItems: "center",
+        backgroundColor: "#B5B2B2",
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
       },
       
       TextInput: {
@@ -134,26 +148,32 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         marginLeft: 20,
+        backgroundColor: "#B5B2B2",
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
       },
       loginBtn: {
-        width: "80%",
+        width: "80",
         height: 50,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
-        backgroundColor: "blue",
         padding: 10,
         marginLeft: 20,
+        backgroundColor: "#B5B2B2",
+        
       },
 registerBtn: {
-    width: "80%",
+    width: "80",
         height: 50,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
-        backgroundColor: "blue",
         padding: 10,
         marginLeft: 20,
+        backgroundColor: "#B5B2B2",
+        
 }
   })
 

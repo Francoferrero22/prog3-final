@@ -51,9 +51,6 @@ class PerfilUsuario extends Component {
         return (
             <View style={style.container}>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
-                        <FontAwesome name='backward' color='black' size={16} />
-                    </TouchableOpacity>
                 
                 <View style={style.containerPic}>
                     <Image
@@ -93,7 +90,6 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 15,
-        backgroundColor: 'rgb(0,0,0)'
     },
     back:{
         marginBottom: 15,
@@ -106,22 +102,27 @@ const style = StyleSheet.create({
     },
     containerPic: {
         flex: 2,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width:350,
+        height:600,
+        textAlign:"center",
+        marginLeft:400
+
     },
     containerText: {
         margin: 15,
         width: '70vw',
         flexGrow: 1,
-        flex: 1
+        flex: 1,
     },
     username: {
         fontSize: 20,
         fontWeight: '600',
-        color: 'rgb(255,255,255)'
+        
     },
     bio: {
         fontSize: 16,
-        color: 'rgb(255,255,255)'
+        
     },
     posteos: {
         marginTop: 120

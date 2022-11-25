@@ -61,7 +61,7 @@ class Perfil extends Component {
             <View style={style.container}>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('HomeNavigation')}>
-                        <FontAwesome name='backward' color='black' size={16} />
+                        <FontAwesome name='backward' color='black' size={25} />
                     </TouchableOpacity>
                     
                 <View style={style.containerPic}>
@@ -106,37 +106,59 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         padding: 15,
-        //backgroundColor: 'rgb(0,0,0)'
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    
     },
-    image: {
-        width: 100,
-        height: 100
+
+    image:{
+        width:50,
+        height:50,
+        
+
     },
+    
     containerPic: {
         flex: 2,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        width:350,
+        height:600,
+        textAlign:"center",
+        marginLeft:400
+
+    
     },
     containerText: {
         margin: 15,
         width: '70vw',
         flexGrow: 1,
-        flex: 1
+        flex: 1,
+        textAlign:"center"
+
+        
+
     },
     username: {
         fontSize: 20,
         fontWeight: '600',
-        color: 'rgb(0,0,0)'
+        color: 'rgb(0,0,0)',
+        textAlign:"center"
     },
     bio: {
         fontSize: 16,
-        color: 'rgb(0,0,0)'
+        color: 'rgb(0,0,0)',
+        textAlign:"center"
     },
     posteos: {
-        marginTop: 120
+        marginTop: 120,
+        textAlign:"center"
     },
     logout: {
-        color: '#0d9900'
-    }
+        color: 'black',
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+        fontWeight:"bold",
+        fontSize: 20,
+
+    },
 })
 export default Perfil;
 

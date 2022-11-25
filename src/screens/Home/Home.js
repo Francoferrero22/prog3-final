@@ -35,14 +35,20 @@ import {db} from '../../firebase/config'
 render(){
     return(
         <>
-      
 
-          <View tyle={styles.container1} >
+        <View style={styles.todo}>
+
+          <Text style={styles.titulo}>InstaPost</Text>
+      
+          <View style={styles.container1} >
           <FlatList
+            style={styles.flatlist}
             data={this.state.posts}
             keyExtractor={item => item.id.toString()}
-            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} />}
+            renderItem={({item}) => <Posts navigation={this.props.navigation} id={item.id} data={item.data} style={styles.container2} />}
           />
+          </View>
+          
           </View>
         </>
     )
@@ -50,20 +56,42 @@ render(){
 
 }
 const styles = StyleSheet.create({
+
+  todo:{
+    margin:30,
+    fontWeight:"bold",
+   
+  },
+
+
   container1:{
     flex:1,
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+   
+    
+  
   },
   container2:{
-    flex:3
+    flex:3,
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    margin:30,
+    fontWeight:"bold",
+
+    
   },
-  container3:{
-    flex:5
+  flatlist:{
+    width:350,
+    height:600,
+    
+    
   },
-  image:{
-    height:300
-  }
+  titulo:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
+    fontSize:100
+  },
 })
 
 

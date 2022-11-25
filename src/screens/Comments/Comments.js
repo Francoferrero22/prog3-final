@@ -151,7 +151,7 @@ class Comments extends Component {
     size: 40
   },
   button: {
-    backgroundColor: "#fbeee0",
+    backgroundColor: "#B5B2B2",
     borderBottomWidth: 2,
     borderRadius: 30,
     shadowColor: "#422800",

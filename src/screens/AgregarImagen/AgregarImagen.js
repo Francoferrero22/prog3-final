@@ -78,7 +78,7 @@ class AgregarImagen extends Component {
             
                 <View>
                     <TouchableOpacity onPress={() => this.pickImage()}>
-                        <Text><MaterialIcons name="add-photo-alternate" size={24} color="white"/> Agregar foto de la galeria</Text>
+                        <Text style={styles.texto}><MaterialIcons name="add-photo-alternate" size={24} color="white"/> Agregar foto de la galeria</Text>
                     </TouchableOpacity>
                 </View>
                         <View>
@@ -92,7 +92,7 @@ class AgregarImagen extends Component {
                 <TouchableOpacity
                 onPress={()=> this.enviarPost(this.state.description, this.state.foto)}
               style={styles.botton} >
-                    <Text>Enviar Post</Text>
+                    <Text  style={styles.texto}>Enviar Post</Text>
                 </TouchableOpacity>
             
               </View>  
@@ -104,30 +104,48 @@ class AgregarImagen extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flex:1
+        flex:1,
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
     },
     input:{
         borderWidth:1,
-        height:48
+        height:48,
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
     },
     mostrarCamara: {
         backgroundColor: 'rgb(20,150,20)',
         padding: 10,
         marginBottom: 15,
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
     },
     mostrarCamaraTxt: {
-        color: 'rgb(240,240,240)'
+        color: 'rgb(240,240,240)',
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
     },
     botton: {
-        width: "80%",
+        width: "40",
             height: 50,
             alignItems: "center",
             justifyContent: "center",
             marginTop: 30,
-            backgroundColor: "blue",
+            backgroundColor: "#B5B2B2",
             padding: 10,
             marginLeft: 20,
+    },
+    texto:{
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+        textAlign: "center",
+        fontWeight:"bold",
     }
+  
 })
 
 export default AgregarImagen

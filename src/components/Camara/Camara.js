@@ -75,7 +75,7 @@ class Camara extends Component{
                 ref={metodos => this.metodosCamara = metodos}
                 />
                 <TouchableOpacity onPress={ () => this.tomarFoto()}>
-                    <Text>Tomar foto</Text>
+                    <Text style={styles.texto}>Tomar foto</Text>
                 </TouchableOpacity>
             </>
             : 
@@ -85,18 +85,18 @@ class Camara extends Component{
                 style={styles.image}
                 />
                 <TouchableOpacity onPress={()=> this.aceptarImagen()}>
-                    <Text>
+                    <Text style={styles.texto}>
                         Aceptar imagen
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity  onPress={()=> this.rechazarImagen()}>
-                    <Text>
+                    <Text style={styles.texto}>
                         Rechazar imagen
                     </Text>
                 </TouchableOpacity>
             </View>
             : 
-            <Text>No me haz dado permisos para mostrar la foto</Text>
+            <Text style={styles.texto}>No me haz dado permisos para mostrar la foto</Text>
         }
       </View>
     )
@@ -112,6 +112,12 @@ const styles = StyleSheet.create({
   },
   image:{
       height:200
+  },
+  texto:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
+    fontSize:30
   }
 })
 export default Camara;

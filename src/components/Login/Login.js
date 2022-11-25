@@ -42,7 +42,7 @@ render() {
     console.log(this.props)
     return (
       <View style={styles.container}>
-        <Text style={styles.titu}>Login</Text>
+        <Text style={styles.titulo}>Login</Text>
         {this.state.error !== '' ? <Text >{this.state.error}</Text> : null}
         <View style= {styles.inputView}>
         <TextInput
@@ -65,10 +65,10 @@ render() {
         </View>
         <View>
             <TouchableOpacity onPress={()=> this.onSubmit(this.state.email,this.state.password)} style={styles.loginBtn}>
-                <Text>Log In</Text>
+                <Text style={styles.texto}>Log In</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={()=> this.props.navigation.navigate('Register')} style={styles.registerBtn}>
-              <Text>Registrate</Text>
+              <Text style={styles.texto}>Registrate</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -76,20 +76,35 @@ render() {
   }
 }
 const styles = StyleSheet.create({
+  titulo:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
+    fontSize:100
+  },
+  texto:{
+    fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
+  },
     container:{
       flex: 1,
-      backgroundColor: 'gray',
       justifyContent:'center',
       alignItems: 'center',
+      
     
     },
       inputView: {
-        backgroundColor: "blue",
         borderRadius: 30,
         width: "70%",
         height: 45,
         marginBottom: 20,
         alignItems: "center",
+        backgroundColor: "#B5B2B2",
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
+        
       },
       
       TextInput: {
@@ -97,16 +112,22 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         marginLeft: 20,
+        backgroundColor: "#B5B2B2",
+        fontFamily: "CerebriSans-Regular, -apple-system, system-ui, Roboto, sans-serif",
+    textAlign: "center",
+    fontWeight:"bold",
       },
       loginBtn: {
+        
         width: "80%",
         height: 50,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
-        backgroundColor: "blue",
+        backgroundColor: "#B5B2B2",
         padding: 10,
         marginLeft: 20,
+        
       },
 registerBtn: {
     width: "80%",
@@ -114,9 +135,10 @@ registerBtn: {
         alignItems: "center",
         justifyContent: "center",
         marginTop: 30,
-        backgroundColor: "blue",
+        backgroundColor: "#B5B2B2",
         padding: 10,
         marginLeft: 20,
+        
 }
   })
 export default Login
